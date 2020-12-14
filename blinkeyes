@@ -1,0 +1,27 @@
+#!/bin/bash
+
+osascript <<EOD
+	activate
+	set alertReply to display alert "Blink Eyes" message "For 30secs" buttons ["no", "yes"] default button 2 giving up after 30
+	set f to "blink_log.txt"
+	set date_ to ((current date) as string)
+	close access (open for access f)
+	if button returned of alertReply is equal to "yes" then
+		write date_ & " : yes \n" to f as "utf8" starting at eof
+	end if
+	if button returned of alertReply is equal to "no" then
+		write date_ & " : no \n" to f as "utf8" starting at eof
+	end if
+	write date_ & " : no action \n" to f as "utf8" starting at eof
+EOD
+
+osascript <<EOD
+	
+	set myList to {"Drink water"}
+	set randItem to some item of myList
+	set randItem to randItem & "\n" & randItem & "\n" & randItem
+
+	activate
+	display alert randItem buttons {"Ok"} default button 1 giving up after 30
+
+EOD
